@@ -232,16 +232,9 @@ s.onclick=()=>{
    },100);
 
    heart.style.filter=`brightness(${1 + found*0.08})`;
-if(found===12){
-
-   const final = document.getElementById("final");
-
-   final.style.display = "flex";
-
-   setTimeout(()=>{
-      final.style.opacity = "1";
-   },50);
-
+if(found>=12){
+   alert("Llegaste a 12 💖");
+   document.getElementById("final").style.display="flex";
 }
 };
 
