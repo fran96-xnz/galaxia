@@ -78,11 +78,17 @@ pointer-events:none;
     position:absolute;
     inset:0;
 
+    opacity:0;
+    transition:1.5s;
+
     display:none;
 
     flex-direction:column;
     align-items:center;
     justify-content:center;
+
+    overflow-y:auto;
+    padding:30px 15px;
 
     background:rgba(0,0,0,.75);
     backdrop-filter:blur(8px);
@@ -96,9 +102,8 @@ background:rgba(255,255,255,.08);
 box-shadow:0 0 25px rgba(255,150,220,.7);
 }
 .frame img{
-width:280px;
-border-radius:15px;
-display:block;
+    width:min(320px,90vw);
+    height:auto;
 }
 .letter{
 max-width:700px;
@@ -106,11 +111,38 @@ margin-top:20px;
 padding:25px;
 text-align:center;
 line-height:1.8;
+    max-height:50vh;
+overflow-y:auto;
 }
 button{
 margin-top:20px;padding:12px 20px;border:none;border-radius:30px;
 cursor:pointer;
 }
+    button{
+    margin-top:20px;
+    padding:12px 20px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+@media (max-width: 600px){
+
+    .letter{
+        font-size:0.95rem;
+        line-height:1.7;
+        padding:15px;
+    }
+
+    .frame img{
+        width:90vw;
+    }
+
+    h2{
+        font-size:1.5rem;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -132,7 +164,7 @@ No hay mucho que decir ni explicarle al universo para que se dé cuenta de cuán
 Lo único que deseo es verte feliz, compartir mi vida con vos y demostrarte cada día lo importante que sos para mí.<br><br>
 Quiero abrazarte una y otra vez, hasta que mis brazos se cansen, acompañarte, apoyarte y hacerte sonreír todos los días.<br><br>
 Entre millones de estrellas, siempre volvería a elegirte a vos.<br><br>
-<b>Te amo muchísimo. ❤️</b>
+<b>Te quiero muchísimo. ❤️</b>
 </p>
 <button onclick="location.reload()">💖 Volver a recorrer nuestra galaxia 💖</button>
 </div>
@@ -177,19 +209,33 @@ pos.forEach((p,i)=>{
  s.innerHTML='✦';
  s.style.left=p[0]+'%';
  s.style.top=p[1]+'%';
- s.onclick=()=>{
+s.onclick=()=>{
+
    if(s.dataset.f) return;
-   s.dataset.f=1;
-   s.classList.add('found');
+
+   s.dataset.f="1";
+
+   s.classList.add("found");
+
    found++;
-   document.getElementById('counter').innerText=`⭐ Estrellas descubiertas: ${found} / 12`;
-   msg.innerText=textos[i];
-   msg.classList.add('show');
-   setTimeout(()=>msg.classList.remove('show'),3000);
-   heart.style.filter=`brightness(${1+found*0.08})`;
- if(found===12){
-    document.getElementById('final').style.display='flex';
-}
+
+   document.getElementById("counter").innerText =
+   `⭐ Estrellas descubiertas: ${found} / 12`;
+
+   msg.classList.remove("show");
+
+   setTimeout(()=>{
+
+      msg.innerText=textos[i];
+      msg.classList.add("show");
+
+   },100);
+
+   heart.style.filter=`brightness(${1 + found*0.08})`;
+
+   if(found===12){
+      document.getElementById("final").style.display="flex";
+   }
 };
 
 galaxy.appendChild(s);
