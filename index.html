@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi amor ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+height:100vh;overflow:hidden;font-family:Segoe UI,sans-serif;
+background:
+radial-gradient(circle at 20% 30%, rgba(255,0,120,.15), transparent 25%),
+radial-gradient(circle at 80% 60%, rgba(140,0,255,.18), transparent 30%),
+linear-gradient(to bottom,#02030f,#05091d,#000);
+color:white;
+}
+#galaxy{position:relative;width:100%;height:100vh}
+#counter{
+position:absolute;top:20px;left:50%;transform:translateX(-50%);z-index:1000
+}
+.heart{
+position:absolute;left:50%;top:50%;
+width:120px;height:120px;background:#ff5b9c;
+transform:translate(-50%,-50%) rotate(-45deg);
+animation:beat 1.6s infinite;
+box-shadow:0 0 40px #ff5b9c,0 0 120px #ff5b9c;
+}
+.heart:before,.heart:after{
+content:"";position:absolute;width:120px;height:120px;
+background:#ff5b9c;border-radius:50%;
+}
+.heart:before{top:-60px}
+.heart:after{left:60px}
+@keyframes beat{
+0%,100%{transform:translate(-50%,-50%) rotate(-45deg) scale(1)}
+50%{transform:translate(-50%,-50%) rotate(-45deg) scale(1.12)}
+}
+.star-bg{
+position:absolute;background:white;border-radius:50%;
+}
+.magic-star{
+    position:absolute;
+
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+
+    color:#fff8d6;
+
+    cursor:pointer;
+
+    z-index:100;
+
+    text-shadow:
+        0 0 8px #fff,
+        0 0 20px #ffeaa0,
+        0 0 40px #ffeaa0;
+
+    transition:.3s;
+}
+.magic-star:hover{transform:scale(1.5)}
+.found{color:#ff8ac6}
+#message{
+position:absolute;top:12%;left:50%;transform:translateX(-50%);
+padding:12px 20px;background:rgba(255,255,255,.08);
+backdrop-filter:blur(8px);
+border-radius:15px;opacity:0;transition:.4s;
+pointer-events:none;
+}
+#message.show{opacity:1}
+.hidden{display:none}
+#final{
+    position:absolute;
+    inset:0;
+
+    display:none;
+
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+
+    z-index:5000;
+}
+.frame{
+padding:10px;
+border-radius:20px;
+background:rgba(255,255,255,.08);
+box-shadow:0 0 25px rgba(255,150,220,.7);
+}
+.frame img{
+width:280px;
+border-radius:15px;
+display:block;
+}
+.letter{
+max-width:700px;
+margin-top:20px;
+padding:25px;
+text-align:center;
+line-height:1.8;
+}
+button{
+margin-top:20px;padding:12px 20px;border:none;border-radius:30px;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div id="counter">⭐ Estrellas descubiertas: 0 / 12</div>
+<div id="message"></div>
+<div id="galaxy">
+<div class="heart" id="heart"></div>
+</div>
+
+<div id="final" class="hidden">
+<div class="frame">
+<img src="foto.jpg" alt="Nuestra foto">
+</div>
+
+<div class="letter">
+<h2>Para mi amor ❤️</h2>
+<p>
+No hay mucho que decir ni explicarle al universo para que se dé cuenta de cuánto te quiero.<br><br>
+Lo único que deseo es verte feliz, compartir mi vida con vos y demostrarte cada día lo importante que sos para mí.<br><br>
+Quiero abrazarte una y otra vez, hasta que mis brazos se cansen, acompañarte, apoyarte y hacerte sonreír todos los días.<br><br>
+Entre millones de estrellas, siempre volvería a elegirte a vos.<br><br>
+<b>Te amo muchísimo. ❤️</b>
+</p>
+<button onclick="location.reload()">💖 Volver a recorrer nuestra galaxia 💖</button>
+</div>
+</div>
+
+<script>
+const galaxy=document.getElementById("galaxy");
+const heart=document.getElementById("heart");
+const msg=document.getElementById("message");
+
+const textos=[
+"Tu sonrisa ilumina mi universo ✨",
+"Gracias por existir 💖",
+"Sos especial 🌹",
+"Nunca dejes de brillar ⭐",
+"Tu felicidad también es la mía 💫",
+"Me encanta compartir mi tiempo con vos ❤️",
+"Te encontré en mi universo 🌌",
+"Te admiro cada día ✨",
+"Tu corazón hace más lindo este mundo 💕",
+"Siempre voy a creer en vos 🌟",
+"Sos mi estrella favorita 💖",
+"Gracias por formar parte de mi vida ❤️"
+];
+
+for(let i=0;i<250;i++){
+ let s=document.createElement('div');
+ s.className='star-bg';
+ let z=Math.random()*3+1;
+ s.style.width=z+'px';s.style.height=z+'px';
+ s.style.left=Math.random()*100+'%';
+ s.style.top=Math.random()*100+'%';
+ galaxy.appendChild(s);
+}
+
+const pos=[[10,15],[22,35],[35,12],[50,28],[70,18],[88,32],[15,55],[30,78],[55,85],[75,72],[90,60],[65,48]];
+let found=0;
+
+pos.forEach((p,i)=>{
+ let s=document.createElement('div');
+ s.className='magic-star';
+ s.innerHTML='✦';
+ s.style.left=p[0]+'%';
+ s.style.top=p[1]+'%';
+ s.onclick=()=>{
+   if(s.dataset.f) return;
+   s.dataset.f=1;
+   s.classList.add('found');
+   found++;
+   document.getElementById('counter').innerText=`⭐ Estrellas descubiertas: ${found} / 12`;
+   msg.innerText=textos[i];
+   msg.classList.add('show');
+   setTimeout(()=>msg.classList.remove('show'),3000);
+   heart.style.filter=`brightness(${1+found*0.08})`;
+ if(found===12){
+    document.getElementById('final').style.display='flex';
+}
+};
+
+galaxy.appendChild(s);
+});
+</script>
+</body>
+</html>
